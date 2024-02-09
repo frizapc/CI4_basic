@@ -1,5 +1,5 @@
 <h1>Add Blog</h1>
-<form action="" method="get">
+<form action="/blogs/add" method="post">
     <div>
         <label for="title">Title</label>
         <input type="text" name="title">
