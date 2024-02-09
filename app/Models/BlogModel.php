@@ -8,7 +8,7 @@ class BlogModel extends Model
 {
     protected $table = 'blogs';
     protected $primaryKey = 'url';
-    protected $allowedFields = ['title', 'content'];
+    protected $allowedFields = ['title', 'content', 'url'];
 
     
 

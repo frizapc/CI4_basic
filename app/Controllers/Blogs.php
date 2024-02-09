@@ -3,9 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\BlogModel;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
+
 
 class Blogs extends BaseController
 {
@@ -33,24 +31,19 @@ class Blogs extends BaseController
 
     public function add()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->is("post")) {
             $title = $this->request->getPost('title');
             $content = $this->request->getPost('content');
             $data = [
                 'title' => $title,
                 'content' => $content,
+                'url' => str_replace(' ','-', $title),
             ];
-            print_r($data);
 
             $this->blog->insert($data);
             return redirect()->to('/blogs');
         }
 
         return view("add_page");
-    }
-
-    public function create()
-    {
-
     }
 }
