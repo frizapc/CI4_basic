@@ -1,39 +1,56 @@
-<?php 
+<?php
 
 namespace App\Controllers;
+
 use App\Models\BlogModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
-
-class Blogs extends BaseController{
+class Blogs extends BaseController
+{
     protected $blog;
-    protected $request;
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->blog = new BlogModel();
-        $this->request = request();
     }
-    public function index(){
+
+    public function index()
+    {
         $data['blogs'] = $this->blog->findAll();
         return view("blogs_page", $data);
     }
 
-    public function byUrl($url){
+    public function byUrl($url)
+    {
         $data['blog'] = $this->blog->find($url);
         if (empty($data['blog'])) {
-            echo "Data not found";
-            return false;
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return view("detail_page.php", $data);
+        return view("detail_page", $data);
     }
 
-    public function add(){
-        print_r($this->request->getGet('title'));
-        print_r($this->request->getGet('content'));
-        // if(isset($_GET['title'])){
-        //     $data["title"] = $_GET['title'];
-        //     $data["content"] = $_GET['content'];
-        //     print_r($data);
-        // }
-        return view("add_page.php");
+    public function add()
+    {
+        if ($this->request->getMethod() == 'post') {
+            $title = $this->request->getPost('title');
+            $content = $this->request->getPost('content');
+            $data = [
+                'title' => $title,
+                'content' => $content,
+            ];
+            print_r($data);
+
+            $this->blog->insert($data);
+            return redirect()->to('/blogs');
+        }
+
+        return view("add_page");
+    }
+
+    public function create()
+    {
+
     }
 }
-
