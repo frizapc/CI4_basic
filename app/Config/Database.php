@@ -24,7 +24,7 @@ class Database extends Config
     /**
      * The default database connection.
      */
-    public array $default = [
+    public array $ci4_db = [
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
