@@ -6,9 +6,11 @@ use CodeIgniter\Model;
 
 class BlogModel extends Model
 {
+    protected $DBGroup = "ci4_db";
     protected $table = 'blogs';
-    protected $primaryKey = 'url';
+    protected $primaryKey = 'id';
     protected $allowedFields = ['title', 'content', 'url'];
+
 
     
 
