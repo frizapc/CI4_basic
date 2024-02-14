@@ -15,4 +15,5 @@ $routes->get('/blogs/add', [Blogs::class,'create']);
 $routes->post('/blogs/add', [Blogs::class,'create']);
 $routes->get('/blogs/edit/(:num)', [Blogs::class,'edit']);
 $routes->put('/blogs/edit/(:num)', [Blogs::class,'edit']);
+$routes->delete('/blogs/delete/(:num)', [Blogs::class,'delete']);
 $routes->get('/blogs/(:any)', [Blogs::class,'byUrl']);
